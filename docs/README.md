@@ -30,3 +30,8 @@ dans la doc on on indique également de mode de lancement de script qui pourons 
 
 Pour lancer l'application il sufit de se rendre a la racine du fichier la ou il y a le docker-compose.yml
 et de faire un docker-compose up
+
+
+##Résultats
+![image](https://github.com/user-attachments/assets/bb90a586-3c01-4a54-90a1-640243aa108d)
+
