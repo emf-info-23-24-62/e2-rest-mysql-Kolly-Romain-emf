@@ -1,0 +1,32 @@
+services:
+  db:
+    image: mysql:5.7
+    environment: #les var nécésésaire a la db
+      MYSQL_DATABASE: api_example
+      MYSQL_USER: user347
+      MYSQL_PASSWORD: pass347
+      MYSQL_ROOT_PASSWORD: rootpass347
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql #Le volume contenant le script d'initialisation de la bd
+      - mysql:/var/lib/mysql # le volume persistant
+    ports: 
+      - 3306:3306 #le port mysql comme indiquer dans les var d'environment pour le backend .env
+    #Ce healthcheck est obligatoire pour moi car mon backend démare trop vite meme malgrés le depends_on
+    #C'etait une erreur que je ne comprenais pas mais grace a l magics school elle ma donner cette solution pour ma part j'ai refait un teste sans et mon backend plantais meme avec le restart always sans le healcheck mais je doit avoueur que j'aurais certainement pas penser a cette solution sans l'ia !
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile # on lui indique que pour le services backend il faut utiliser build le dockfile en premier lieux
+    ports: 
+      - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy #c'est ici quon utilise le healtcheck d'ecrit plus haut on lui dui qu'il dépend du resultat du check
+
+volumes:
+  mysql: 
