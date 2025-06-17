@@ -29,4 +29,4 @@ Et on peut remplacer le fichier se trouvant dans le dossier sql le fichier init-
 dans la doc on on indique également de mode de lancement de script qui pourons etre utiliser pour lancer le backend nous on nous demande d'utiliser celui en dev
 
 Pour lancer l'application il sufit de se rendre a la racine du fichier la ou il y a le docker-compose.yml
-et de faire un docker-compose.yml
+et de faire un docker-compose up
